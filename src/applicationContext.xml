@@ -14,4 +14,33 @@
         <constructor-arg ref="tool2"></constructor-arg>
     </bean>
 
+
+    <bean id="personTarget" class="com.shengsiyuan.spring6.PersonImpl">
+        <property name="name" value="zhangsan"/>
+        <property name="address" value="北京上地"/>
+    </bean>
+
+    <bean id="beforeAdvice" class="com.shengsiyuan.spring6.MyMethodBeforeAdvice"></bean>
+    <bean id="afterAdvice" class="com.shengsiyuan.spring6.MyAfterReturningAdvice"></bean>
+    <bean id="aroundAdvice" class="com.shengsiyuan.spring6.MyAroundAdvice"></bean>
+
+
+    <bean id="person" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces" value="com.shengsiyuan.spring6.Person"/>
+        <property name="target" ref="personTarget"/>
+        <property name="interceptorNames">
+            <list>
+                <value>aroundAdvice</value>
+                <value>beforeAdvice</value>
+                <value>afterAdvice</value>
+            </list>
+
+        </property>
+    </bean>
+
+    <bean id="personAspect" class="com.shengsiyuan.myAspectJ.Person">
+        <property name="name" value="zhangsan"/>
+    </bean>
+
+
 </beans>
